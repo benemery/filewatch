@@ -8,7 +8,7 @@ class FileUpdatedSubject(Subject):
             # As we don't know what the observers will do to our filelist,
             # create a local copy so they all get the same list
             local_file_list = file_list[:]
-            observer.notify(local_file_list)
+            observer.notify(file_list=local_file_list)
 
 file_updated_subject = FileUpdatedSubject()
 # We only ever want one subject available, so remove the original class
