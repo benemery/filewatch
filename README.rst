@@ -1,6 +1,11 @@
 .. image:: https://travis-ci.org/benemery/filewatch.svg?branch=master
     :target: https://travis-ci.org/benemery/filewatch
 
+.. image:: https://coveralls.io/repos/benemery/filewatch/badge.svg?branch=master
+  :target: https://coveralls.io/r/benemery/filewatch?branch=master
+
+
+
 FILEWATCH
 =========
 
