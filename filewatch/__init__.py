@@ -1,4 +1,4 @@
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 
 from filewatch.file_observer import file_updated_subject
 from filewatch.observer import ObserverBase
