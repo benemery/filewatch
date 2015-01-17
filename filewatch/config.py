@@ -2,6 +2,12 @@ import ConfigParser
 import os
 
 def get_config(config_name, env_name=None):
+    """Load a config file.
+
+    We look in various locations for a config file, starting with the
+    default one in the app's current directory. We then check the user's
+    home directory before looking for the appropriate environment variable.
+    """
     if not env_name:
         env_name = '%s_CONF' % config_name.split('.')[0]
 
