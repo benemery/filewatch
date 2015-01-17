@@ -1,7 +1,7 @@
 .. image:: https://travis-ci.org/benemery/filewatch.svg?branch=master
     :target: https://travis-ci.org/benemery/filewatch
 
-.. image:: https://coveralls.io/repos/benemery/filewatch/badge.svg?branch=master
+.. image:: https://coveralls.io/repos/benemery/filewatch/badge.svg?branch=master&foo=bar
   :target: https://coveralls.io/r/benemery/filewatch?branch=master
 
 
