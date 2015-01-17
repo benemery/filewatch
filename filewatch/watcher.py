@@ -3,12 +3,12 @@ import os
 import time
 
 from filewatch.file_observer import file_updated_subject
+from filewatch.config import settings
 
 class Watcher(object):
-    def __init__(self, interval=1):
+    def __init__(self):
         # A map of filepath keys to their last modified date
         self.files = {}
-        self.interval = interval
 
         self._first_run = True
 
@@ -16,7 +16,7 @@ class Watcher(object):
         """Continually check the filesytem until the process ends"""
         while True:
             self.perform_check(start_directory=start_directory)
-            time.sleep(self.interval)
+            time.sleep(settings.get('DEFAULT', 'interval'))
 
     def perform_check(self, start_directory=None):
         """Run a check over filesytem.
