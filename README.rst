@@ -5,3 +5,37 @@ FILEWATCH
 =========
 
 Keep track of what files change and when with this super easy to use package.
+
+Installation
+------------
+
+Install using pip:
+
+.. code-block:: pycon
+
+    $ pip install ricloud
+
+Then create and register your observer:
+
+.. code-block:: pycon
+
+    # your_observer.py
+    from filewatch import ObserverBase, file_updated_subject, Watcher
+
+    class YourObserver(ObserverBase):
+        def notify(self, *args, **kwargs):
+            file_list = kwargs['file_list']
+            print 'These files have been updated %s' % file_list
+
+    file_updated_subject.register_observer(YourObserver())
+    watcher = Watcher()
+    watcher.run()
+
+Then simply execute the file:
+
+.. code-block:: pycon
+
+    $ python your_observer.py
+
+Now every time that a file is created / modified within your current working
+directory, the system will print to console which file was updated.
