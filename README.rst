@@ -1,4 +1,5 @@
 .. image:: https://travis-ci.org/benemery/filewatch.svg?branch=master
+    :target: https://travis-ci.org/benemery/filewatch
 
 FILEWATCH
 =========
