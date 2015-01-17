@@ -1,11 +1,12 @@
 import os
 import hashlib
 
+from filewatch.file_observer import file_updated_subject
+
 class Watcher(object):
     def __init__(self):
         # A map of filepath keys to their last modified date
         self.files = {}
-
         self._first_run = True
 
     def run(self, start_directory=None):
@@ -17,9 +18,11 @@ class Watcher(object):
         if not start_directory:
             start_directory = os.getcwd()
 
+        files_updated = []
+
         for dirpath, dirnames, filenames in os.walk(start_directory):
             for filename in filenames:
-                broadcast_required = False
+                updated = False
                 full_path = os.path.join(dirpath, filename)
                 key = self._get_key(full_path)
 
@@ -27,18 +30,18 @@ class Watcher(object):
 
                 try:
                     last_changed = self.files[key]
-
-                    broadcast_required = last_changed < file_modified
+                    updated = last_changed < file_modified
                 except KeyError:
                     # We have not seen this file before, add it our dict and
                     # broadcast
                     self.files[key] = file_modified
+                    updated = not self._first_run
 
-                    broadcast_required = not self._first_run
+                if updated:
+                    files_updated.append(full_path)
 
-                if broadcast_required:
-                    # Tell our observer about this file
-                    pass
+        if files_updated:
+            file_updated_subject.notify(file_list=files_updated)
 
         # Keep track of state
         self._first_run = False
