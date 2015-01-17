@@ -1,4 +1,8 @@
 language: python
 install:
   - pip install .
-script: py.test filewatch
+  - pip install coveralls
+script:
+  coverage run --source=filewatch setup.py test
+after_success:
+  coveralls
