@@ -1,15 +1,24 @@
-import os
 import hashlib
+import os
+import time
 
 from filewatch.file_observer import file_updated_subject
 
 class Watcher(object):
-    def __init__(self):
+    def __init__(self, interval=1):
         # A map of filepath keys to their last modified date
         self.files = {}
+        self.interval = interval
+
         self._first_run = True
 
     def run(self, start_directory=None):
+        """Continually check the filesytem until the process ends"""
+        while True:
+            self.perform_check(start_directory=start_directory)
+            time.sleep(self.interval)
+
+    def perform_check(self, start_directory=None):
         """Run a check over filesytem.
 
         :note: If no start directory is supplied then we will begin walking

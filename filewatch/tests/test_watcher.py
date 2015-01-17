@@ -25,7 +25,7 @@ class TestWatcher(object):
     def test_file_discovory(self):
         """Are we able to find the correct number of files?"""
         watcher = Watcher()
-        watcher.run(TEST_DIR_A)
+        watcher.perform_check(TEST_DIR_A)
 
         assert len(watcher.files) == 5
 
@@ -34,13 +34,13 @@ class TestWatcher(object):
         file_updated_subject.remove_observers()
         file_updated_subject.register_observer(FileObserver())
         watcher = Watcher()
-        watcher.run(TEST_DIR_A)
+        watcher.perform_check(TEST_DIR_A)
 
         # "Touch" a file to update it's last modifed time
         a_file_path = os.path.join(TEST_DIR_A, "file_1")
         os.utime(a_file_path, None)
 
-        watcher.run(TEST_DIR_A)
+        watcher.perform_check(TEST_DIR_A)
 
     def test_filelist_modification(self):
         """Do we maintain integrity when observers modify our filelist?"""
@@ -50,10 +50,10 @@ class TestWatcher(object):
         file_updated_subject.register_observer(FileObserverModification())
 
         watcher = Watcher()
-        watcher.run(TEST_DIR_A)
+        watcher.perform_check(TEST_DIR_A)
 
         # "Touch" a file to update it's last modifed time
         a_file_path = os.path.join(TEST_DIR_A, "file_1")
         os.utime(a_file_path, None)
 
-        watcher.run(TEST_DIR_A)
+        watcher.perform_check(TEST_DIR_A)
