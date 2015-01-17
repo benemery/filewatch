@@ -1,6 +1,5 @@
 from filewatch.observer import Subject, ObserverBase
 
-
 class ObserverObj1(ObserverBase):
     def notify(self, *args, **kwargs):
         a_list = kwargs['a_list']
@@ -72,4 +71,3 @@ class TestObserver(object):
 
         assert len(my_list) == 3
         assert my_list == ['a', 'b', 'c', ]
-
