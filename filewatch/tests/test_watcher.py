@@ -1,3 +1,4 @@
+import hashlib
 import os
 
 from filewatch.watcher import Watcher
@@ -57,3 +58,9 @@ class TestWatcher(object):
         os.utime(a_file_path, None)
 
         watcher.perform_check(TEST_DIR_A)
+
+    def test_get_key(self):
+        """Does our key generation method work as expected?"""
+        watcher = Watcher()
+        key = watcher._get_key('FOO')
+        assert key == hashlib.sha1('FOO').digest()

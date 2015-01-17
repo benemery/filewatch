@@ -58,4 +58,4 @@ class Watcher(object):
     def _get_key(self, full_path):
         """Build a checksum used to identify this filepath"""
         full_path_checksum = hashlib.sha1(full_path).digest()
-        return full_path
+        return full_path_checksum
