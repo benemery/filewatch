@@ -16,13 +16,13 @@ Installation
 
 Install using pip:
 
-.. code-block:: pycon
+.. code-block:: console
 
     $ pip install filewatch
 
 Then create and register your observer:
 
-.. code-block:: pycon
+.. code-block:: python
 
     # your_observer.py
     from filewatch import ObserverBase, file_updated_subject, Watcher
@@ -38,7 +38,7 @@ Then create and register your observer:
 
 Then simply execute the file:
 
-.. code-block:: pycon
+.. code-block:: console
 
     $ python your_observer.py
 
