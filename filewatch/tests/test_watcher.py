@@ -64,3 +64,10 @@ class TestWatcher(object):
         watcher = Watcher()
         key = watcher._get_key('FOO')
         assert key == hashlib.sha1('FOO').digest()
+
+    def test_default_directory(self):
+        """What happens when no directory is supplied?"""
+        watcher = Watcher()
+        watcher.perform_check()
+
+        assert len(watcher.files) > 0
