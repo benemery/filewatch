@@ -42,6 +42,10 @@ class Watcher(object):
                 try:
                     last_changed = self.files[key]
                     updated = last_changed < file_modified
+
+                    if updated:
+                        # Update file change time
+                        self.files[key] = file_modified
                 except KeyError:
                     # We have not seen this file before, add it our dict and
                     # broadcast

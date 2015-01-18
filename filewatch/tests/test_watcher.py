@@ -1,5 +1,6 @@
 import hashlib
 import os
+import time
 
 from filewatch.watcher import Watcher
 from filewatch.observer import ObserverBase
@@ -55,9 +56,15 @@ class TestWatcher(object):
 
         # "Touch" a file to update it's last modifed time
         a_file_path = os.path.join(TEST_DIR_A, "file_1")
+        key = watcher._get_key(a_file_path)
+        original_time = watcher.files[key]
+
+        time.sleep(0.01)
         os.utime(a_file_path, None)
 
         watcher.perform_check(TEST_DIR_A)
+
+        assert original_time < watcher.files[key]
 
     def test_get_key(self):
         """Does our key generation method work as expected?"""
