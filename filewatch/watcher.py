@@ -16,7 +16,9 @@ class Watcher(object):
         """Continually check the filesytem until the process ends"""
         while True:
             self.perform_check(start_directory=start_directory)
-            time.sleep(settings.get('DEFAULT', 'interval'))
+
+            interval = float(settings.get('DEFAULT', 'interval'))
+            time.sleep(interval)
 
     def perform_check(self, start_directory=None):
         """Run a check over filesytem.
