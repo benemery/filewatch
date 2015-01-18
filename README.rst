@@ -18,7 +18,7 @@ Install using pip:
 
 .. code-block:: pycon
 
-    $ pip install ricloud
+    $ pip install filewatch
 
 Then create and register your observer:
 
