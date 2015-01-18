@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from distutils.core import setup, Command
+import os
 
 from filewatch import VERSION
 
@@ -18,8 +19,8 @@ class PyTest(Command):
         errno = subprocess.call([sys.executable, 'runtests.py'])
         raise SystemExit(errno)
 
-
-with open('README.rst', 'rb') as fin:
+current_dir = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(current_dir, 'README.rst'), 'rb') as fin:
     README = fin.read()
 
 PACKAGE_NAME = 'filewatch'
