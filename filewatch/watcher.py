@@ -53,7 +53,11 @@ class Watcher(object):
                     updated = not self._first_run
 
                 if updated:
-                    files_updated.append(full_path)
+                    meta = {
+                        'size': os.path.getsize(full_path),
+                    }
+
+                    files_updated.append((full_path, meta))
 
         if files_updated:
             file_updated_subject.notify(file_list=files_updated)
