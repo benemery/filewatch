@@ -12,6 +12,9 @@ class Watcher(object):
 
         self._first_run = True
 
+        # Maintain a set of files seen to keep track of deleted files
+        self._files_seen = set()
+
     def run(self, start_directory=None):
         """Continually check the filesytem until the process ends"""
         while True:
@@ -30,12 +33,13 @@ class Watcher(object):
             start_directory = os.getcwd()
 
         files_updated = []
+        seen = set()
 
         for dirpath, dirnames, filenames in os.walk(start_directory):
             for filename in filenames:
                 updated = False
                 full_path = os.path.join(dirpath, filename)
-                key = self._get_key(full_path)
+                key = full_path
 
                 file_modified = os.path.getmtime(full_path)
 
@@ -58,14 +62,15 @@ class Watcher(object):
                     }
 
                     files_updated.append((full_path, meta))
+                seen.add(key)
+
+        # Add deleted files with an empty meta dict
+        for deleted_file_path in self._files_seen - seen:
+            files_updated.append((deleted_file_path, None))
 
         if files_updated:
             file_updated_subject.notify(file_list=files_updated)
 
         # Keep track of state
         self._first_run = False
-
-    def _get_key(self, full_path):
-        """Build a checksum used to identify this filepath"""
-        full_path_checksum = hashlib.sha1(full_path).digest()
-        return full_path_checksum
+        self._files_seen = seen
